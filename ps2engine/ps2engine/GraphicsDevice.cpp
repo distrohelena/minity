@@ -1,3 +1,4 @@
+#ifdef DIRECTX
 #include "GraphicsDevice.h"
 
 
@@ -11,62 +12,103 @@ GraphicsDevice::~GraphicsDevice() {
 
 // this function initializes and prepares Direct3D for use
 void GraphicsDevice::InitD3D(HWND hWnd) {
-	// create a struct to hold information about the swap chain
-	DXGI_SWAP_CHAIN_DESC scd;
+	D3D_FEATURE_LEVEL featureLevels[] = { D3D_FEATURE_LEVEL_11_0 };
 
-	// clear out the struct for use
-	ZeroMemory(&scd, sizeof(DXGI_SWAP_CHAIN_DESC));
+	ID3D11Device* baseDevice;
+	ID3D11DeviceContext* baseDeviceContext;
 
-	// fill the swap chain description struct
-	scd.BufferCount = 1;                                    // one back buffer
-	scd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;     // use 32-bit color
-	scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;      // how swap chain is to be used
-	scd.OutputWindow = hWnd;                                // the window to be used
-	scd.SampleDesc.Count = 4;                               // how many multisamples
-	scd.Windowed = TRUE;                                    // windowed/full-screen mode
+	D3D11CreateDevice(nullptr, 
+		D3D_DRIVER_TYPE_HARDWARE, 
+		nullptr, 
+		D3D11_CREATE_DEVICE_BGRA_SUPPORT, 
+		featureLevels, 
+		ARRAYSIZE(featureLevels), 
+		D3D11_SDK_VERSION, 
+		&baseDevice,
+		nullptr, 
+		&baseDeviceContext);
 
-	// create a device, device context and swap chain using the information in the scd struct
-	D3D11CreateDeviceAndSwapChain(NULL,
-		D3D_DRIVER_TYPE_HARDWARE,
-		NULL,
-		NULL,
-		NULL,
-		NULL,
-		D3D11_SDK_VERSION,
-		&scd,
-		&swapchain,
-		&dev,
-		NULL,
-		&devcon);
+	baseDevice->QueryInterface(__uuidof(ID3D11Device1), reinterpret_cast<void**>(&dev));
 
-	// get the address of the back buffer
-	ID3D11Texture2D* pBackBuffer;
-	swapchain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+	baseDeviceContext->QueryInterface(__uuidof(ID3D11DeviceContext1), reinterpret_cast<void**>(&devcon));
 
-	// use the back buffer address to create the render target
-	dev->CreateRenderTargetView(pBackBuffer, NULL, &backbuffer);
-	pBackBuffer->Release();
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	// set the render target as the back buffer
-	devcon->OMSetRenderTargets(1, &backbuffer, NULL);
+	IDXGIDevice1* dxgiDevice;
+	dev->QueryInterface(__uuidof(IDXGIDevice1), reinterpret_cast<void**>(&dxgiDevice));
 
-	// Set the viewport
-	D3D11_VIEWPORT viewport;
-	ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+	IDXGIAdapter* dxgiAdapter;
+	dxgiDevice->GetAdapter(&dxgiAdapter);
+	IDXGIFactory2* dxgiFactory;
 
-	viewport.TopLeftX = 0;
-	viewport.TopLeftY = 0;
-	viewport.Width = 800;
-	viewport.Height = 600;
+	dxgiAdapter->GetParent(__uuidof(IDXGIFactory2), reinterpret_cast<void**>(&dxgiFactory));
 
-	devcon->RSSetViewports(1, &viewport);
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	DXGI_SWAP_CHAIN_DESC1 swapChainDesc;
+	swapChainDesc.Width = 800; // use window width
+	swapChainDesc.Height = 600; // use window height
+	swapChainDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM_SRGB;
+	swapChainDesc.Stereo = FALSE;
+	swapChainDesc.SampleDesc.Count = 1;
+	swapChainDesc.SampleDesc.Quality = 0;
+	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	swapChainDesc.BufferCount = 2;
+	swapChainDesc.Scaling = DXGI_SCALING_STRETCH;
+	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD; // prefer DXGI_SWAP_EFFECT_FLIP_DISCARD, see Minimal D3D11 pt2 
+	swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED;
+	swapChainDesc.Flags = 0;
+
+	dxgiFactory->CreateSwapChainForHwnd(dev, hWnd, &swapChainDesc, nullptr, nullptr, &swapChain);
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	ID3D11Texture2D* frameBuffer;
+	swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&frameBuffer));
+
+	dev->CreateRenderTargetView(frameBuffer, nullptr, &frameBufferView);
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	D3D11_TEXTURE2D_DESC depthBufferDesc;
+	frameBuffer->GetDesc(&depthBufferDesc); // copy from framebuffer properties
+
+	depthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+
+	ID3D11Texture2D* depthBuffer;
+	dev->CreateTexture2D(&depthBufferDesc, nullptr, &depthBuffer);
+
+	dev->CreateDepthStencilView(depthBuffer, nullptr, &depthBufferView);
+
+	D3D11_RASTERIZER_DESC1 rasterizerDesc = {};
+	rasterizerDesc.FillMode = D3D11_FILL_SOLID;
+	rasterizerDesc.CullMode = D3D11_CULL_BACK;
+
+	dev->CreateRasterizerState1(&rasterizerDesc, &rasterizerState);
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	D3D11_SAMPLER_DESC samplerDesc = {};
+	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	dev->CreateSamplerState(&samplerDesc, &samplerState);
+
+	D3D11_DEPTH_STENCIL_DESC depthStencilDesc = {};
+	depthStencilDesc.DepthEnable = TRUE;
+	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS;
+
+
+	dev->CreateDepthStencilState(&depthStencilDesc, &depthStencilState);
+
+	viewport = { 0.0f, 0.0f, static_cast<float>(depthBufferDesc.Width), static_cast<float>(depthBufferDesc.Height), 0.0f, 1.0f };
 }
 
 // this is the function that cleans up Direct3D and COM
 void GraphicsDevice::CleanD3D()
 {
 	// close and release all existing COM objects
-	swapchain->Release();
+	swapChain->Release();
 	backbuffer->Release();
 	dev->Release();
 	devcon->Release();
@@ -77,13 +119,24 @@ void GraphicsDevice::BeginRenderFrame(void)
 {
 	// clear the back buffer to a deep blue
 	float color[4] = { 0.0f, 0.2f, 0.4f, 1.0f };
-	devcon->ClearRenderTargetView(backbuffer, color);
+	devcon->ClearRenderTargetView(frameBufferView, color);
+	devcon->ClearDepthStencilView(depthBufferView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 
+	devcon->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+	// fill both sides
+	devcon->RSSetViewports(1, &viewport);
+	devcon->RSSetState(rasterizerState);
+
+	devcon->OMSetRenderTargets(1, &frameBufferView, depthBufferView);
+	devcon->OMSetDepthStencilState(depthStencilState, 0);
+	devcon->OMSetBlendState(nullptr, nullptr, 0xffffffff); // use default blend mode (i.e. disable)
 }
 
 void GraphicsDevice::EndRenderFrame(void)
 {
 	// switch the back buffer and the front buffer
-	swapchain->Present(0, 0);
+	swapChain->Present(0, 0);
 }
+
+#endif

@@ -11,9 +11,6 @@
     <Filter Include="src\components">
       <UniqueIdentifier>{ae75a5a9-a3cd-4938-bc3d-fd6fe0a6ffb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\dotnet">
-      <UniqueIdentifier>{7cafb2b8-5b89-417c-9ad8-620cf70c147e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\assets">
       <UniqueIdentifier>{60d87002-ad15-41d1-8273-b7a7acb5151a}</UniqueIdentifier>
     </Filter>
@@ -25,6 +22,18 @@
     </Filter>
     <Filter Include="src\platform\win">
       <UniqueIdentifier>{89e8b1cd-6722-4138-82b7-b3cca8bf99ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\model">
+      <UniqueIdentifier>{d002104e-14a2-4499-ab54-7e97a0f8b1e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\user">
+      <UniqueIdentifier>{8a92a346-dcbf-4fca-98d5-03afb9439f99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\platform\ps2">
+      <UniqueIdentifier>{f950506c-c355-4f8f-82ca-a1b7a8be98bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{44eb2c5c-28af-46a0-b6ae-c998837c721a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,20 +49,11 @@
     <ClInclude Include="GameObject.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsDevice.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneParser.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="structs.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="Buffer.hpp">
-      <Filter>src\dotnet</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
       <Filter>src</Filter>
@@ -85,25 +85,49 @@
     <ClInclude Include="CameraComponent.h">
       <Filter>src\components</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentType.h">
+      <Filter>src\model</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraKeyboard.h">
+      <Filter>src\user</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectInputManager.h">
+      <Filter>src\platform\win</Filter>
+    </ClInclude>
+    <ClInclude Include="LightComponent.h">
+      <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetMaterial.h">
+      <Filter>src\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="TyraRenderManager.h">
+      <Filter>src\platform\ps2</Filter>
+    </ClInclude>
+    <ClInclude Include="tutorial_04.hpp">
+      <Filter>src\platform\ps2</Filter>
+    </ClInclude>
+    <ClInclude Include="TyraInputManager.h">
+      <Filter>src\platform\ps2</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetTexture.h">
+      <Filter>src\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtil.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MeshComponent.cpp">
       <Filter>src\components</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneParser.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="float4.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsDevice.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="Buffer.cpp">
-      <Filter>src\dotnet</Filter>
     </ClCompile>
     <ClCompile Include="Core.cpp">
       <Filter>src</Filter>
@@ -134,6 +158,39 @@
     </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
       <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentType.cpp">
+      <Filter>src\model</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraKeyboard.cpp">
+      <Filter>src\user</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectInputManager.cpp">
+      <Filter>src\platform\win</Filter>
+    </ClCompile>
+    <ClCompile Include="LightComponent.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetMaterial.cpp">
+      <Filter>src\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="TyraRenderManager.cpp">
+      <Filter>src\platform\ps2</Filter>
+    </ClCompile>
+    <ClCompile Include="tutorial_04.cpp">
+      <Filter>src\platform\ps2</Filter>
+    </ClCompile>
+    <ClCompile Include="TyraInputManager.cpp">
+      <Filter>src\platform\ps2</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetTexture.cpp">
+      <Filter>src\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtil.cpp">
+      <Filter>src\util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

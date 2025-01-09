@@ -7,6 +7,8 @@ public:
 	GameObject* parent;
 	bool enabled = true;
 
-	virtual void OnEnabled(void);
+	virtual void Start(void);
+	virtual void OnEnable(void);
+	virtual void Tick(void);
 };
 

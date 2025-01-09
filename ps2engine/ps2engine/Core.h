@@ -1,30 +1,50 @@
 #pragma once
 
-#include "GraphicsDevice.h"
 #include "RenderManager.h"
 #include "SceneManager.h"
+#include "InputManager.h"
 
-class Core
-{
-public:
-	Core();
-	static Core* instance;
+#ifdef PS2
+#include <tyra>
+using namespace Tyra;
+#endif
 
-	void Init(HWND hWnd);
-	void Draw(void);
+class Core {
+ public:
+  Core();
+  static Core* instance;
 
-	SceneManager* GetSceneManager() {
-		return sceneManager;
-	}
+#ifdef DIRECTX
+  void Init(HWND hWnd);
 
-	RenderManager* GetRenderManager() {
-		return renderManager;
-	}
+  HWND GetHWND() { return hWND; }
+#endif
 
-private:
-	ContentManager* contentManager;
-	SceneManager* sceneManager;
-	GraphicsDevice* device;
-	RenderManager* renderManager;
+#ifdef PS2
+  void Init(Engine* engine);
+
+  Engine* GetEngine() { return engine; }
+#endif
+
+  void Draw(void);
+
+  SceneManager* GetSceneManager() { return sceneManager; }
+
+  RenderManager* GetRenderManager() { return renderManager; }
+
+  InputManager* GetInputManager() { return inputManager; }
+
+ private:
+  ContentManager* contentManager;
+  SceneManager* sceneManager;
+  RenderManager* renderManager;
+  InputManager* inputManager;
+
+#if DIRECTX
+  HWND hWND;
+#endif
+
+#ifdef PS2
+  Engine* engine;
+#endif
 };
-

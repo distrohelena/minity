@@ -1,5 +1,10 @@
 #include "GameComponent.h"
-#include <windows.h>
 
-void GameComponent::OnEnabled(void) {
+void GameComponent::Start(void) {
+}
+
+void GameComponent::OnEnable(void) {
+}
+
+void GameComponent::Tick(void) {
 }

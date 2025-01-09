@@ -4,7 +4,7 @@
 class CameraComponent : public GameComponent
 {
 public:
-	void OnEnabled(void) override;
+	void OnEnable(void) override;
 
 };
 

@@ -5,6 +5,14 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="PS2|Win32">
+      <Configuration>PS2</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PS2|x64">
+      <Configuration>PS2</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
@@ -32,6 +40,12 @@
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PS2|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -40,6 +54,12 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PS2|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
@@ -60,21 +80,42 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PS2|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PS2|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PS2|x64'">
+    <IncludePath>C:\dev\ps2\ps2dev-intellisense\ps2sdk\common\include;C:\dev\ps2\ps2dev-intellisense\ps2sdk\ee\include;C:\dev\ps2\ps2dev-intellisense\ps2sdk\iop\include;C:\dev\ps2\ps2dev-intellisense\ps2sdk\ports\include\**C:\dev\ps2\ps2dev-intellisense\ee\include;C:\dev\ps2\ps2dev-intellisense\ee\lib\gcc\mips64r5900el-ps2-elf\11.3.0\include;C:\dev\ps2\ps2dev-intellisense\ee\lib\gcc\mips64r5900el-ps2-elf\11.3.0\include-fixed;C:\dev\ps2\ps2dev-intellisense\ee\lib\gcc\mips64r5900el-ps2-elf\11.3.0\install-tools\include;C:\dev\ps2\ps2dev-intellisense\ee\lib\gcc\mips64r5900el-ps2-elf\11.3.0\plugin\include;C:\dev\ps2\ps2dev-intellisense\ee\mips64r5900el-ps2-elf\include;C:\dev\ps2\ps2dev-intellisense\ee\mips64r5900el-ps2-elf\sys-include;C:\dev\ps2\ps2dev-intellisense\gsKit\include;C:\dev\ps2\ps2dev-intellisense\iop\lib\gcc\mipsel-ps2-elf\11.3.0\include;C:\dev\ps2\ps2dev-intellisense\iop\lib\gcc\mipsel-ps2-elf\11.3.0\install-tools\include;C:\dev\ps2\ps2dev-intellisense\iop\lib\gcc\mipsel-ps2-elf\11.3.0\plugin\include;C:\dev\ps2\ps2dev-intellisense\iop\lib\gcc\mipsel-ps2-elf\11.3.0\include-fixed;C:\dev\ps2\ps2dev-intellisense\iop\lib\gcc\mipsel-ps2-irx\11.3.0\include;C:\dev\ps2\ps2dev-intellisense\iop\lib\gcc\mipsel-ps2-irx\11.3.0\install-tools\include;C:\dev\ps2\ps2dev-intellisense\iop\lib\gcc\mipsel-ps2-irx\11.3.0\plugin\include;C:\dev\ps2\ps2dev-intellisense\iop\lib\gcc\mipsel-ps2-irx\11.3.0\include-fixed;C:\dev\ps2\ps2dev-intellisense\tyra\inc;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;DIRECTX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PS2|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;DIRECTX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -110,13 +151,25 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PS2|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;PS2;INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;DIRECTX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -124,46 +177,65 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>dinput8.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AssetMaterial.h" />
     <ClInclude Include="AssetMesh.h" />
     <ClInclude Include="AssetObject.h" />
-    <ClInclude Include="Buffer.hpp" />
+    <ClInclude Include="AssetTexture.h" />
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="CameraKeyboard.h" />
+    <ClInclude Include="ComponentType.h" />
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="DirectInputManager.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GraphicsDevice.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LightComponent.h" />
+    <ClInclude Include="MathUtil.h" />
     <ClInclude Include="MeshComponent.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="DirectXRenderer.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="SceneParser.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Time.h" />
+    <ClInclude Include="tutorial_04.hpp" />
+    <ClInclude Include="TyraInputManager.h" />
+    <ClInclude Include="TyraRenderManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssetMaterial.cpp" />
     <ClCompile Include="AssetMesh.cpp" />
     <ClCompile Include="AssetObject.cpp" />
-    <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="AssetTexture.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="CameraKeyboard.cpp" />
+    <ClCompile Include="ComponentType.cpp" />
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="DirectInputManager.cpp" />
     <ClCompile Include="float4.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GraphicsDevice.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LightComponent.cpp" />
+    <ClCompile Include="MathUtil.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="DirectXRenderer.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="SceneParser.cpp" />
+    <ClCompile Include="Time.cpp" />
+    <ClCompile Include="tutorial_04.cpp" />
+    <ClCompile Include="TyraInputManager.cpp" />
+    <ClCompile Include="TyraRenderManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ps2engine.rc" />

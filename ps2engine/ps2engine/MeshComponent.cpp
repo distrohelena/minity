@@ -1,8 +1,7 @@
 #include "MeshComponent.h"
-#include <windows.h>
 #include "Core.h"
 
-void MeshComponent::OnEnabled(void) {
+void MeshComponent::OnEnable(void) {
 	// enabled, add ourselves to render list
 	Core::instance->GetRenderManager()->RegisterMesh(this);
 }

@@ -1,40 +1,65 @@
 #include "Core.h"
-#include "Buffer.hpp"
 #include "structs.h"
 
-#if DIRECTX
-#include "DirectXRenderer.h";
+#ifdef DIRECTX
+#include "DirectXRenderer.h"
+#include "DirectInputManager.h"
+#endif
+
+#ifdef PS2
+#include "TyraRenderManager.h"
+#include "TyraInputManager.h"
 #endif
 
 Core* Core::instance = nullptr;
 
-Core::Core() {
-	instance = this;
-}
-
-void Core::Init(HWND hWnd) {
-	device = new GraphicsDevice();
-	device->InitD3D(hWnd);
+Core::Core() { instance = this; }
 
 #if DIRECTX
-	renderManager = new DirectXRenderer(device);
-#else 
-	throw;
+void Core::Init(HWND hWnd) {
+  hWND = hWnd;
+  renderManager = new DirectXRenderer(hWnd);
+  renderManager->InitPipeline();
+
+  inputManager = new DirectInputManager();
+  inputManager->Init();
+
+  contentManager = new ContentManager();
+
+  sceneManager = new SceneManager(renderManager, contentManager);
+  sceneManager->ParseAssets("assets.ps2");
+  sceneManager->ParseScene("scene.ps2");
+}
 #endif
 
-	renderManager->InitPipeline();
+#ifdef PS2
+void Core::Init(Engine* eng) {
+  engine = eng;
 
-	contentManager = new ContentManager();
+  renderManager = new TyraRenderManager(engine);
+  renderManager->InitPipeline();
 
-	sceneManager = new SceneManager(renderManager, contentManager);
-	sceneManager->ParseAssets("assets.ps2");
-	sceneManager->ParseScene("scene.ps2");
-	
-	int x = -1;
+  inputManager = new TyraInputManager();
+  inputManager->Init();
+
+  contentManager = new ContentManager();
+
+  sceneManager = new SceneManager(renderManager, contentManager);
+  sceneManager->ParseAssets("assets.ps2");
+  sceneManager->ParseScene("scene.ps2");
+  // sceneManager->ParseAssets("mass://assets.ps2");
+  // sceneManager->ParseScene("mass://scene.ps2");
 }
+#endif
 
 void Core::Draw() {
-	device->BeginRenderFrame();
-	renderManager->Render();
-	device->EndRenderFrame();
+  inputManager->Tick();
+
+  for (GameObject* obj : sceneManager->rootObjs) {
+    obj->Tick();
+  }
+
+  renderManager->BeginRenderFrame();
+  renderManager->Render();
+  renderManager->EndRenderFrame();
 }

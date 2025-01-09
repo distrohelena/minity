@@ -2,12 +2,14 @@
 #include "GameComponent.h"
 #include "AssetMesh.h"
 
+class AssetMaterial;
 class MeshComponent : public GameComponent
 {
 public:
 	AssetMesh* mesh;
+	AssetMaterial* mat;
 
-	void OnEnabled(void) override;
+	void OnEnable(void) override;
 
 };
 
