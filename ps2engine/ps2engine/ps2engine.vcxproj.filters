@@ -1,84 +1,139 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\components">
+    <Filter Include="src">
+      <UniqueIdentifier>{ee876855-e744-4078-b784-77a49dfcc4f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components">
       <UniqueIdentifier>{ae75a5a9-a3cd-4938-bc3d-fd6fe0a6ffb1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\components">
-      <UniqueIdentifier>{dae0382d-bd0f-4b46-89ef-57c1d97affee}</UniqueIdentifier>
+    <Filter Include="src\dotnet">
+      <UniqueIdentifier>{7cafb2b8-5b89-417c-9ad8-620cf70c147e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\assets">
+      <UniqueIdentifier>{60d87002-ad15-41d1-8273-b7a7acb5151a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers">
+      <UniqueIdentifier>{20ab2268-6966-4587-b5bd-5e5b759f33ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\platform">
+      <UniqueIdentifier>{04b05e86-9df9-4128-9286-b859cf4dae30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\platform\win">
+      <UniqueIdentifier>{89e8b1cd-6722-4138-82b7-b3cca8bf99ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="MeshComponent.h">
+      <Filter>src\components</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
+      <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ps2engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsDevice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="structs.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="framework.h">
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
+      <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="GameComponent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GraphicsDevice.h">
+      <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="MeshComponent.h">
-      <Filter>Header Files\components</Filter>
+    <ClInclude Include="Resource.h">
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="SceneParser.h">
-      <Filter>Header Files</Filter>
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.hpp">
+      <Filter>src\dotnet</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetMesh.h">
+      <Filter>src\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="GameComponent.h">
+      <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentManager.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetObject.h">
+      <Filter>src\assets</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXRenderer.h">
+      <Filter>src\platform\win</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>src\platform\win</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>src\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ps2engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="float4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsDevice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameComponent.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MeshComponent.cpp">
-      <Filter>Source Files\components</Filter>
+      <Filter>src\components</Filter>
     </ClCompile>
     <ClCompile Include="SceneParser.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="float4.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsDevice.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>src\dotnet</Filter>
+    </ClCompile>
+    <ClCompile Include="Core.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetMesh.cpp">
+      <Filter>src\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="GameComponent.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetObject.cpp">
+      <Filter>src\assets</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXRenderer.cpp">
+      <Filter>src\platform\win</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>src\platform\win</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>src\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

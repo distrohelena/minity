@@ -2,11 +2,12 @@
 //
 
 #include "framework.h"
-#include "ps2engine.h"
+#include "main.h"
 #include "GraphicsDevice.h"
-#include "Renderer.h"
+#include "DirectXRenderer.h"
 #include "GameObject.h"
 #include "MeshComponent.h"
+#include "Core.h"
 
 #define MAX_LOADSTRING 100
 
@@ -16,7 +17,7 @@ WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
 WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
 
 GraphicsDevice* graphicsDevice;
-Renderer* renderer;
+DirectXRenderer* renderer;
 
 // Forward declarations of functions included in this code module:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -117,17 +118,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
-   graphicsDevice = new GraphicsDevice();
-   graphicsDevice->InitD3D(hWnd);
+   Core* core = new Core();
+   core->Init(hWnd);
+   core->Draw();
 
-   renderer = new Renderer(graphicsDevice);
-   renderer->InitPipeline();
-
-   graphicsDevice->BeginRenderFrame();
-   renderer->Render();
-   graphicsDevice->EndRenderFrame();
-
-   GameObject* object = new GameObject();
+   /*GameObject* object = new GameObject();
 
    MeshComponent* mesh = new MeshComponent();
    object->components.push_back(mesh);
@@ -139,7 +134,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
        comp->print();
 
        std::advance(it, 1);
-   }
+   }*/
 
    return TRUE;
 }

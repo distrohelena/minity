@@ -1,5 +1,5 @@
 #include "GameComponent.h"
 #include <windows.h>
 
-void GameComponent::print(void) {
+void GameComponent::OnEnabled(void) {
 }

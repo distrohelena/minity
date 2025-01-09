@@ -26,6 +26,7 @@ struct float4 {
 
 struct VERTEX
 {
-    FLOAT X, Y, Z;      // position
-    DirectX::XMFLOAT4 Color;    // color
+    float4 pos;
+    float4 uv;
+    float4 normal;
 };

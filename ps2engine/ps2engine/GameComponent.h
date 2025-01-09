@@ -1,9 +1,12 @@
 #pragma once
+
+class GameObject;
 class GameComponent
 {
 public:
-	bool enabled;
+	GameObject* parent;
+	bool enabled = true;
 
-	virtual void print(void);
+	virtual void OnEnabled(void);
 };
 

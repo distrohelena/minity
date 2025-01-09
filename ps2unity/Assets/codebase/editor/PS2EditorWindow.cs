@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -27,7 +28,7 @@ namespace ps2unity {
         }
 
         private void WriteObjects(GameObject[] gos, BinaryWriter writer, BinaryWriter assetsWriter, Dictionary<object, string> assets) {
-            writer.Write(gos.Length);
+            writer.Write((uint)gos.Length);
 
             for (int i = 0; i < gos.Length; i++) {
                 GameObject go = gos[i];
@@ -41,22 +42,52 @@ namespace ps2unity {
             Vector2[] uv = mesh.uv;
             int[] indices = mesh.triangles;
 
-            writer.Write((ushort)vertices.Length);
-            writer.Write((ushort)normals.Length);
-            writer.Write((ushort)uv.Length);
-            writer.Write((ushort)indices.Length);
+            // mesh type: 120 (PS2, triangle list no index all float4)
+            writer.Write((byte)120);
 
-            for (int i = 0; i < vertices.Length; i++) {
-                writer.Write(vertices[i]);
+            // engine doesnt support indices, so as disk space is not a problem we save all triangles
+            writer.Write((uint)indices.Length);
+
+            for (int i = 0; i < indices.Length - 2; i += 3)
+            {
+                int i0 = indices[i];
+                int i1 = indices[i + 1];
+                int i2 = indices[i + 2];
+                writer.Write(vertices[i0]);
+                writer.Write(1.0f);
+                writer.Write(vertices[i1]);
+                writer.Write(1.0f);
+                writer.Write(vertices[i2]);
+                writer.Write(1.0f);
             }
-            for (int i = 0; i < normals.Length; i++) {
-                writer.Write(normals[i]);
+
+            for (int i = 0; i < indices.Length - 2; i += 3)
+            {
+                int i0 = indices[i];
+                int i1 = indices[i + 1];
+                int i2 = indices[i + 2];
+                writer.Write(normals[i0]);
+                writer.Write(1.0f);
+                writer.Write(normals[i1]);
+                writer.Write(1.0f);
+                writer.Write(normals[i2]);
+                writer.Write(1.0f);
             }
-            for (int i = 0; i < uv.Length; i++) {
-                writer.Write(uv[i]);
-            }
-            for (int i = 0; i < indices.Length; i++) {
-                writer.Write((ushort)indices[i]);
+
+            for (int i = 0; i < indices.Length - 2; i += 3)
+            {
+                int i0 = indices[i];
+                int i1 = indices[i + 1];
+                int i2 = indices[i + 2];
+                writer.Write(uv[i0]);
+                writer.Write(1.0f);
+                writer.Write(1.0f);
+                writer.Write(uv[i1]);
+                writer.Write(1.0f);
+                writer.Write(1.0f);
+                writer.Write(uv[i2]);
+                writer.Write(1.0f);
+                writer.Write(1.0f);
             }
         }
 
@@ -66,8 +97,10 @@ namespace ps2unity {
             writer.Write(go.transform.localRotation);
 
             Component[] comps = go.GetComponents(typeof(Component));
-            writer.Write((byte)comps.Length);
+            long compsPos = writer.BaseStream.Position;
+            writer.Write((byte)0);
 
+            int totalComps = comps.Length;
             for (int i = 0; i < comps.Length; i++) {
                 Component comp = comps[i];
 
@@ -84,16 +117,23 @@ namespace ps2unity {
                         key = GUID.Generate().ToString();
                         assets.Add(sharedMesh, key);
 
-                        assetsWriter.Write(key);
+                        assetsWriter.Write(key.ToCharArray());
+                        assetsWriter.Write((ushort)AssetType.Mesh);
                         SerializeMesh(sharedMesh, assetsWriter);
                     }
 
-                    writer.Write(key);
+                    writer.Write(key.ToCharArray());
                 } else {
-                    writer.Write((ushort)ComponentType.None);
+                    totalComps--;
+                    //writer.Write((ushort)ComponentType.None);
                     continue;
                 }
             }
+
+            long finalPos = writer.BaseStream.Position;
+            writer.BaseStream.Position = compsPos;
+            writer.Write((byte)totalComps);
+            writer.BaseStream.Position = finalPos;
 
             int counter = 0;
             foreach (Transform tr in go.transform) {
@@ -130,8 +170,9 @@ namespace ps2unity {
             writer.Flush();
             writerAssets.Flush();
 
-            string fileName = "C:\\dev\\ps2\\scene.ps2";
-            string assetsName = "C:\\dev\\ps2\\assets.ps2";
+            string baseFolder = "D:\\dev\\ps2unity\\ps2engine\\ps2engine";
+            string fileName = Path.Combine(baseFolder, "scene.ps2");
+            string assetsName = Path.Combine(baseFolder, "assets.ps2");
 
             if (File.Exists(fileName)) {
                 File.Delete(fileName);

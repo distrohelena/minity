@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -102,7 +102,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;DIRECTX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -127,26 +127,42 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AssetMesh.h" />
+    <ClInclude Include="AssetObject.h" />
+    <ClInclude Include="Buffer.hpp" />
+    <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="ContentManager.h" />
+    <ClInclude Include="Core.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicsDevice.h" />
     <ClInclude Include="MeshComponent.h" />
-    <ClInclude Include="ps2engine.h" />
-    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="DirectXRenderer.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SceneParser.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssetMesh.cpp" />
+    <ClCompile Include="AssetObject.cpp" />
+    <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="ContentManager.cpp" />
+    <ClCompile Include="Core.cpp" />
     <ClCompile Include="float4.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicsDevice.cpp" />
     <ClCompile Include="MeshComponent.cpp" />
-    <ClCompile Include="ps2engine.cpp" />
-    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="DirectXRenderer.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneParser.cpp" />
   </ItemGroup>
   <ItemGroup>

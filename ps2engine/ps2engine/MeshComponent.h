@@ -1,9 +1,13 @@
 #pragma once
 #include "GameComponent.h"
+#include "AssetMesh.h"
 
 class MeshComponent : public GameComponent
 {
 public:
-	void print(void) override;
+	AssetMesh* mesh;
+
+	void OnEnabled(void) override;
+
 };
 
