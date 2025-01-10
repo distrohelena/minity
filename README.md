@@ -20,7 +20,8 @@ Installation
 Windows: Just build and run the project
 
 PS2:
-- Install Tyra Engine, from fork: [https://github.com/h4570/tyra/tree/master/docs/install](https://github.com/distrohelena/tyra/tree/master/docs/install)
+- Install Tyra Engine, from fork: [https://github.com/distrohelena/tyra/tree/master/docs/install](https://github.com/distrohelena/tyra/tree/master/docs/install)
+     - Fork does 2 minor changes, allow us to change Texture for the mesh without a textureName, and changes Makefile to add PS2 #ifdef
 - Copy source code from project to tyra/demo/minity
 - Copy demo_game.hpp and demo_game.cpp to demo tyra/demo folder
 
@@ -29,6 +30,8 @@ Running:
 Emulator (PCSX2)
 
 - Enable Host file System (https://github.com/h4570/tyra/blob/master/docs/install/pcsx2.md)
+- Copy ELF to a folder
+- Exporter your scene to that folder
 
 Console (Hardware)
 
