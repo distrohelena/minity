@@ -106,7 +106,7 @@
     <ClInclude Include="TyraRenderManager.h">
       <Filter>src\platform\ps2</Filter>
     </ClInclude>
-    <ClInclude Include="tutorial_04.hpp">
+    <ClInclude Include="demo_game.hpp">
       <Filter>src\platform\ps2</Filter>
     </ClInclude>
     <ClInclude Include="TyraInputManager.h">
@@ -184,7 +184,7 @@
     <ClCompile Include="TyraRenderManager.cpp">
       <Filter>src\platform\ps2</Filter>
     </ClCompile>
-    <ClCompile Include="tutorial_04.cpp">
+    <ClCompile Include="demo_game.cpp">
       <Filter>src\platform\ps2</Filter>
     </ClCompile>
     <ClCompile Include="TyraInputManager.cpp">

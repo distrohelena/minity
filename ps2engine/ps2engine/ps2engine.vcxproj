@@ -207,7 +207,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="float2.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="tutorial_04.hpp" />
+    <ClInclude Include="demo_game.hpp" />
     <ClInclude Include="TyraInputManager.h" />
     <ClInclude Include="TyraRenderManager.h" />
     <ClInclude Include="DX_VERTEX.h" />
@@ -235,7 +235,7 @@
     <ClCompile Include="DirectXRenderer.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="tutorial_04.cpp" />
+    <ClCompile Include="demo_game.cpp" />
     <ClCompile Include="TyraInputManager.cpp" />
     <ClCompile Include="TyraRenderManager.cpp" />
   </ItemGroup>
