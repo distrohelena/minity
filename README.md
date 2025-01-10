@@ -21,13 +21,6 @@ Windows: Just build and run the project
 
 PS2:
 - Install Tyra Engine, from fork: [https://github.com/h4570/tyra/tree/master/docs/install](https://github.com/distrohelena/tyra/tree/master/docs/install)
-- Add PS2 flag to Makefile:
-  
-        CFLAGS		:= -D PS2
-  
-        CXXFLAGS    := -D PS2
-
-  
 - Copy source code from project to tyra/demo/minity
 - Copy demo_game.hpp and demo_game.cpp to demo tyra/demo folder
 
