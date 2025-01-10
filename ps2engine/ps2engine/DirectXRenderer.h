@@ -17,7 +17,7 @@
 #pragma comment (lib, "user32")
 
 #include "AssetMesh.h"
-#include "structs.h"
+#include "float4.h"
 #include "GameObject.h"
 #include "RenderManager.h"
 #include "MeshComponent.h"

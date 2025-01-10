@@ -93,6 +93,7 @@
     <Compile Include="Assets\codebase\game\TankPlayerComponent.cs" />
     <Compile Include="Assets\codebase\unity_exporter\model\ExportStats.cs" />
     <Compile Include="Assets\codebase\unity_exporter\model\asset\MeshAssetData.cs" />
+    <Compile Include="Assets\codebase\game\RotateObjComponent.cs" />
     <Compile Include="Assets\codebase\game\TankCameraComponent.cs" />
     <Compile Include="Assets\codebase\unity_exporter\BinaryWriterExtensions.cs" />
     <Compile Include="Assets\codebase\unity_exporter\model\AssetType.cs" />

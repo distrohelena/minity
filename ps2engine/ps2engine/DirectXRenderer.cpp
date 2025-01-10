@@ -1,11 +1,13 @@
 #ifdef DIRECTX
 
 #include "DirectXRenderer.h"
-#include "structs.h"
+#include "DX_VERTEX.h"
 #include <stdexcept>
 #include "LightComponent.h"
 #include "AssetMaterial.h"
 #include "AssetTexture.h"
+#include "float3.h"
+#include "float4.h"
 
 DirectXRenderer::DirectXRenderer(HWND hWND) {
 	this->hwnd = hWND;

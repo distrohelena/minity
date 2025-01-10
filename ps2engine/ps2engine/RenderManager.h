@@ -1,7 +1,8 @@
 #pragma once
-#include "structs.h"
 #include "AssetMesh.h"
 #include <vector>
+#include "float3.h"
+#include "float4.h"
 
 using namespace std;
 

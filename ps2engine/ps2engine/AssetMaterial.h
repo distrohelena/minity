@@ -1,6 +1,6 @@
 #pragma once
 #include "AssetObject.h"
-#include "structs.h"
+#include "float4.h"
 
 class AssetTexture;
 class AssetMaterial : public AssetObject

@@ -1,6 +1,6 @@
 #pragma once
-#include "structs.h"
 
+#include "float2.h"
 
 class InputManager
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "GameComponent.h"
-#include "structs.h"
+#include "float4.h"
 
 using namespace std;
 

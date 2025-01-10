@@ -1,6 +1,5 @@
 #pragma once
 #include "AssetObject.h"
-#include "structs.h"
 
 #ifdef DIRECTX
 #include <d3d11.h>

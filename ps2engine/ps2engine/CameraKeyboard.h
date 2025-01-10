@@ -1,7 +1,7 @@
 #pragma once
 #include "CameraKeyboard.h"
 #include "GameComponent.h"
-#include "structs.h"
+#include "float3.h"
 
 class CameraKeyboard : public GameComponent
 {

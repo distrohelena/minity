@@ -1,5 +1,4 @@
 #include "Core.h"
-#include "structs.h"
 
 #ifdef DIRECTX
 #include "DirectXRenderer.h"

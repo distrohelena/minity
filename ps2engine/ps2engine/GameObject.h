@@ -1,5 +1,6 @@
 #pragma once
-#include "structs.h"
+#include "float3.h"
+#include "float4.h"
 #include <iostream>
 #include <list>
 #include "GameComponent.h"

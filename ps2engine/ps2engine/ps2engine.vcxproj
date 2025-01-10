@@ -191,6 +191,8 @@
     <ClInclude Include="ContentManager.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="DirectInputManager.h" />
+    <ClInclude Include="float3.h" />
+    <ClInclude Include="float4.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameComponent.h" />
     <ClInclude Include="GameObject.h" />
@@ -203,12 +205,12 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="structs.h" />
+    <ClInclude Include="float2.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Time.h" />
     <ClInclude Include="tutorial_04.hpp" />
     <ClInclude Include="TyraInputManager.h" />
     <ClInclude Include="TyraRenderManager.h" />
+    <ClInclude Include="DX_VERTEX.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssetMaterial.cpp" />
@@ -221,6 +223,7 @@
     <ClCompile Include="ContentManager.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DirectInputManager.cpp" />
+    <ClCompile Include="float3.cpp" />
     <ClCompile Include="float4.cpp" />
     <ClCompile Include="GameComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -232,7 +235,6 @@
     <ClCompile Include="DirectXRenderer.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Time.cpp" />
     <ClCompile Include="tutorial_04.cpp" />
     <ClCompile Include="TyraInputManager.cpp" />
     <ClCompile Include="TyraRenderManager.cpp" />

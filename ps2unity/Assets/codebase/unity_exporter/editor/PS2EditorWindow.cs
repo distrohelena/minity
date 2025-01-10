@@ -147,6 +147,7 @@ namespace ps2unity {
                 WriteObjectsChild(go.transform, writer, assetsWriter, assets, program);
             }
         }
+
         static float CalculateTriangleArea(Vector3 A, Vector3 B, Vector3 C) {
             Vector3 AB = B - A;
             Vector3 AC = C - A;

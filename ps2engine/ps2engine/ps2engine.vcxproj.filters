@@ -52,7 +52,7 @@
     <ClInclude Include="Resource.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="structs.h">
+    <ClInclude Include="float2.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
@@ -118,13 +118,17 @@
     <ClInclude Include="MathUtil.h">
       <Filter>src\util</Filter>
     </ClInclude>
+    <ClInclude Include="float3.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="DX_VERTEX.h" />
+    <ClInclude Include="float4.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MeshComponent.cpp">
       <Filter>src\components</Filter>
-    </ClCompile>
-    <ClCompile Include="float4.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>src</Filter>
@@ -191,6 +195,12 @@
     </ClCompile>
     <ClCompile Include="MathUtil.cpp">
       <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="float3.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="float4.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
