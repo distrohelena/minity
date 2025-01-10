@@ -1,30 +1,28 @@
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.Timeline;
-using UnityEngine.UIElements;
 using Scene = UnityEngine.SceneManagement.Scene;
-using Microsoft.CodeAnalysis.Formatting;
-using System.Linq;
-using UnityEditor.UIElements;
-using Codice.Client.Common;
-using PlasticGui;
-using Codice.Client.BaseCommands;
-using Microsoft.SqlServer.Server;
-using static PlasticGui.PlasticTableColumn;
 
 namespace ps2unity {
     public class PS2EditorWindow : EditorWindow {
+        private const string ExporterExportPath = "Minity_ExporterPath";
+        private const string ExporterCodePath = "Minity_CoderPath";
+
         private Vector2 scrollPos;
         private MinityPlatform platform = MinityPlatform.PlayStation2;
+
+        // path
+        private string exportPath;
+        private string codePath;
 
         // tesselation
         private bool tesselation;
@@ -37,12 +35,19 @@ namespace ps2unity {
         private bool lightmapExposureBuilt;
         private int lightmapResolution = 512;
 
+        private bool exportCode;
+
         private ExportStats stats;
         private Dictionary<int, List<MeshRenderer>> lightmapMap;
         private Dictionary<object, AssetData> data;
 
         [NonSerialized]
         private Rect border = new Rect(5, 5, 10, 10);
+
+        public PS2EditorWindow() {
+            exportPath = EditorPrefs.GetString(ExporterExportPath, "");
+            codePath = EditorPrefs.GetString(ExporterCodePath, "");
+        }
 
         [MenuItem("Window/Minity Exporter")]
         public static void ShowExample() {
@@ -60,6 +65,26 @@ namespace ps2unity {
             GUILayout.BeginHorizontal();
             GUILayout.Label("Minity Exporter v0.0.1 ", EditorStyles.boldLabel);
             GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            exportPath = EditorGUILayout.TextField("Export Folder", exportPath);
+            if (GUILayout.Button("...")) {
+                exportPath = EditorUtility.OpenFolderPanel("Select Export Folder", "", "");
+                EditorPrefs.SetString(ExporterExportPath, exportPath);
+            }
+            GUILayout.EndHorizontal();
+
+            exportCode = EditorGUILayout.Toggle("Export Code", exportCode);
+
+            if (exportCode) {
+                GUILayout.BeginHorizontal();
+                codePath = EditorGUILayout.TextField("Minity Folder", exportPath);
+                if (GUILayout.Button("...")) {
+                    codePath = EditorUtility.OpenFolderPanel("Select Minity Folder", "", "");
+                    EditorPrefs.SetString(ExporterCodePath, codePath);
+                }
+                GUILayout.EndHorizontal();
+            }
 
             platform = (MinityPlatform)EditorGUILayout.EnumPopup("Platform", platform);
             tesselation = EditorGUILayout.Toggle("Tesselation", tesselation);
@@ -97,6 +122,7 @@ namespace ps2unity {
                     }
                 }
             }
+
 
             if (GUILayout.Button("Export")) {
                 Export();
@@ -494,6 +520,11 @@ namespace ps2unity {
 
                 } else {
                     // check if component is a custom one
+                    if (program == null) {
+                        totalComps--;
+                        continue;
+                    }
+
                     ClassData cl = program.Classes.FirstOrDefault(c => c.Name == comp.GetType().Name);
                     if (cl != null) {
                         if (cl.IsComponent) {
@@ -504,11 +535,6 @@ namespace ps2unity {
                             continue;
                         }
                     }
-
-                    totalComps--;
-
-                    //writer.Write((ushort)ComponentType.None);
-                    continue;
                 }
             }
 
@@ -600,13 +626,8 @@ namespace ps2unity {
             stats = new ExportStats();
             data = new Dictionary<object, AssetData>();
 
-            string directXFolder = "D:\\dev\\ps2unity\\ps2engine\\ps2engine";
-            string baseFolder = "C:\\dev\\tyra\\demo\\bin";
-            string tyraSource = "C:\\dev\\tyra\\demo\\src\\minity";
-            string fileName = Path.Combine(baseFolder, "scene.ps2");
-            string assetsName = Path.Combine(baseFolder, "assets.ps2");
-            string fileNameDX = Path.Combine(directXFolder, "scene.ps2");
-            string assetsNameDX = Path.Combine(directXFolder, "assets.ps2");
+            string fileName = Path.Combine(exportPath, "scene.ps2");
+            string assetsName = Path.Combine(exportPath, "assets.ps2");
 
             Scene scene = SceneManager.GetActiveScene();
 
@@ -705,24 +726,25 @@ namespace ps2unity {
                     Graphics.SetRenderTarget(null);
                     RenderTexture.ReleaseTemporary(renderTexture);
 
-                    File.WriteAllBytes("C:\\dev\\ps2\\sd.png", tex.EncodeToPNG());
-
                     SerializeTexture(GUID.Generate().ToString(), tex, writer, true);
                 }
             }
 
-            ProgramData program = new ProgramData();
-            program.Classes.Add(ExpressionUtil.MonoBehaviourData);
-            program.Classes.Add(ExpressionUtil.InputData);
-            program.Classes.Add(ExpressionUtil.TimeData);
-            program.Classes.Add(ExpressionUtil.Vector2Data);
-            program.Classes.Add(ExpressionUtil.Vector3Data);
-            program.Classes.Add(ExpressionUtil.Vector4Data);
+            ProgramData program = null;
 
-            PreProcessCode(program);
-            ExpressionUtil.ProcessProgram(program);
-            WriteClasses(program, Path.Combine(directXFolder, "game"));
-            //WriteClasses(classes, Path.Combine(tyraSource, "game"));
+            if (exportCode) {
+                program = new ProgramData();
+                program.Classes.Add(ExpressionUtil.MonoBehaviourData);
+                program.Classes.Add(ExpressionUtil.InputData);
+                program.Classes.Add(ExpressionUtil.TimeData);
+                program.Classes.Add(ExpressionUtil.Vector2Data);
+                program.Classes.Add(ExpressionUtil.Vector3Data);
+                program.Classes.Add(ExpressionUtil.Vector4Data);
+
+                PreProcessCode(program);
+                ExpressionUtil.ProcessProgram(program);
+                WriteClasses(program, Path.Combine(codePath, "game"));
+            }
 
             Dictionary<object, string> assets = new Dictionary<object, string>();
             WriteObjects(gos, writer, writerAssets, assets, program);
@@ -737,12 +759,6 @@ namespace ps2unity {
             if (File.Exists(assetsName)) {
                 File.Delete(assetsName);
             }
-            if (File.Exists(fileNameDX)) {
-                File.Delete(fileNameDX);
-            }
-            if (File.Exists(assetsNameDX)) {
-                File.Delete(assetsNameDX);
-            }
 
             using (Stream fileStr = File.OpenWrite(fileName)) {
                 stream.Position = 0;
@@ -750,16 +766,6 @@ namespace ps2unity {
             }
 
             using (Stream fileStr = File.OpenWrite(assetsName)) {
-                streamAssets.Position = 0;
-                streamAssets.CopyTo(fileStr);
-            }
-
-            using (Stream fileStr = File.OpenWrite(fileNameDX)) {
-                stream.Position = 0;
-                stream.CopyTo(fileStr);
-            }
-
-            using (Stream fileStr = File.OpenWrite(assetsNameDX)) {
                 streamAssets.Position = 0;
                 streamAssets.CopyTo(fileStr);
             }

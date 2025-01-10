@@ -3,7 +3,8 @@
 #ifdef PS2
 
 #include "AssetMesh.h"
-#include "structs.h"
+#include "float3.h"
+#include "float4.h"
 #include "GameObject.h"
 #include "RenderManager.h"
 #include "MeshComponent.h"
