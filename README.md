@@ -16,11 +16,24 @@ How it works:
 Right now there's no support for multiple scenes.
 
 Installation
+
 Windows: Just build and run the project
+
 PS2:
 - Install Tyra Engine: https://github.com/h4570/tyra/tree/master/docs/install
 - Copy source code from project to tyra/demo/minity
 - Copy demo_game.hpp and demo_game.cpp to demo tyra/demo folder
+
+Running:
+
+Emulator (PCSX2)
+
+- Enable Host file System (https://github.com/h4570/tyra/blob/master/docs/install/pcsx2.md)
+
+Console (Hardware)
+
+- Copy ELF to USB drive
+- Copy assets.ps2 and scene.ps2 to root
 
 ![14](https://github.com/user-attachments/assets/3f368225-4ad8-46ab-b918-f0b1f8627411)
 ![9](https://github.com/user-attachments/assets/0b2aed8e-ef66-4077-a143-86301e8321dc)
